@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TrapdoorBlock.class)
 public class TrapdoorBlockMixin {
-    @Inject(method = "getPlacementState", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getPlacementState", at = @At("HEAD"))
     private void onPlace(ItemPlacementContext ctx, CallbackInfoReturnable<BlockState> cir) {
         if (ModernBetaCompanion.isModernBeta()) {
             // Cancel if trapdoor was placed directly on ceiling or floor
