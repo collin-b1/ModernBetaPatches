@@ -11,7 +11,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "me.collinb.modernbetahelper.ModernBetaCompanion"
+      "me.collinb.modernbetacompanion.ModernBetaCompanion"
     ]
   },
   "mixins": [
