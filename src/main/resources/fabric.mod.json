@@ -3,9 +3,11 @@
   "id": "modernbetacompanion",
   "version": "${version}",
   "name": "ModernBetaCompanion",
-  "description": "",
+  "description": "Client-side fixes for Modern Beta",
   "authors": ["collin-b1"],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/collin-b1/ModernBetaCompanion"
+  },
   "license": "GPL-3.0",
   "icon": "assets/modernbetacompanion/icon.png",
   "environment": "client",
