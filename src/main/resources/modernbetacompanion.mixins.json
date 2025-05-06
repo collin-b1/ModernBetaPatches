@@ -1,11 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "me.collinb.modernbetahelper.mixin",
+  "package": "me.collinb.modernbetacompanion.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "SlabBlockMixin",
+    "StairsBlockMixin",
+    "TrapdoorBlockMixin"
   ],
   "client": [
+    "ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
