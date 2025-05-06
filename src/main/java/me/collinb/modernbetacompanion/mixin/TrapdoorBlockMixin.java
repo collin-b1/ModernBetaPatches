@@ -14,12 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TrapdoorBlock.class)
 public class TrapdoorBlockMixin {
-    @Inject(method = "getPlacementState", at = @At("HEAD"))
+    @Inject(method = "getPlacementState", at = @At("HEAD"), cancellable = true)
     private void onPlace(ItemPlacementContext ctx, CallbackInfoReturnable<BlockState> cir) {
         if (ModernBetaCompanion.isModernBeta()) {
             // Cancel if trapdoor was placed directly on ceiling or floor
             if (ctx.getSide() == Direction.UP || ctx.getSide() == Direction.DOWN) {
-                cir.cancel();
+                cir.setReturnValue(null);
             }
 
             BlockPos pos = ctx.getBlockPos();
@@ -27,8 +27,9 @@ public class TrapdoorBlockMixin {
             BlockPos supportPos = pos.offset(side.getOpposite());
             BlockState supportBlock = ctx.getWorld().getBlockState(supportPos);
 
+            // Cancel if placed on transparent block
             if (supportBlock.isTransparent()) {
-                cir.cancel();
+                cir.setReturnValue(null);
             }
         }
     }
