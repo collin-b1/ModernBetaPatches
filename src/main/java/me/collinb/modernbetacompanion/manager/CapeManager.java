@@ -1,0 +1,56 @@
+package me.collinb.modernbetacompanion.manager;
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.util.Identifier;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
+public class CapeManager {
+    private static final Map<UUID, Identifier> capes = new HashMap<>();
+
+    public static void fetchCape(UUID uuid) {
+        String url = "https://cape.modernbeta.org/cape/" + uuid;
+
+        CompletableFuture.runAsync(() -> {
+            try (InputStream stream = URI.create(url).toURL().openStream()) {
+                NativeImage image = NativeImage.read(stream);
+
+                NativeImage reformatted = new NativeImage(NativeImage.Format.RGBA, 64, 32, true);
+                for (int y = 0; y < 32; y++) {
+                    for (int x = 0; x < 64; x++) {
+                        reformatted.setColorArgb(x, y, 0x00000000); // transparent
+                    }
+                }
+
+                for (int y = 0; y < 17; y++) {
+                    for (int x = 0; x < 22; x++) {
+                        int color = image.getColorArgb(x, y);
+                        reformatted.setColorArgb(x, y, color);
+                    }
+                }
+
+                Identifier id = Identifier.of("modernbetacapes", uuid.toString());
+
+                MinecraftClient.getInstance().execute(() -> {
+                    MinecraftClient.getInstance().getTextureManager()
+                            .registerTexture(id, new NativeImageBackedTexture(reformatted));
+                    capes.put(uuid, id);
+                });
+            } catch (IOException ignored) {
+                // No cape found, silently ignore
+            }
+        });
+    }
+
+    public static Identifier getCape(UUID uuid) {
+        return capes.get(uuid);
+    }
+}
