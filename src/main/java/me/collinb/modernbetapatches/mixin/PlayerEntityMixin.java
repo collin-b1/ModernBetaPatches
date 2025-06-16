@@ -1,6 +1,6 @@
-package me.collinb.modernbetacompanion.mixin;
+package me.collinb.modernbetapatches.mixin;
 
-import me.collinb.modernbetacompanion.ModernBetaCompanion;
+import me.collinb.modernbetapatches.ModernBetaPatches;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +22,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Redirect(method = "updatePose", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;canChangeIntoPose(Lnet/minecraft/entity/EntityPose;)Z"))
     private boolean preventSwimmingAndCrawling(PlayerEntity instance, EntityPose pose) {
-        if (ModernBetaCompanion.isModernBeta()) {
+        if (ModernBetaPatches.isModernBeta()) {
             if (this.getPose() == EntityPose.SWIMMING) {
                 this.setPose(EntityPose.STANDING);
             }

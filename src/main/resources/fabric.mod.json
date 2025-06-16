@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "id": "modernbetacompanion",
+  "id": "modernbetapatches",
   "version": "${version}",
-  "name": "ModernBetaCompanion",
-  "description": "Client-side fixes for Modern Beta",
+  "name": "ModernBetaPatches",
+  "description": "Client-side patches for Modern Beta",
   "authors": ["collin-b1"],
   "contact": {
-    "sources": "https://github.com/collin-b1/ModernBetaCompanion"
+    "sources": "https://github.com/collin-b1/ModernBetaPatches"
   },
   "license": "GPL-3.0",
-  "icon": "assets/modernbetacompanion/icon.png",
+  "icon": "assets/modernbetapatches/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "me.collinb.modernbetacompanion.ModernBetaCompanion"
+      "me.collinb.modernbetapatches.ModernBetaPatches"
     ]
   },
   "mixins": [
-    "modernbetacompanion.mixins.json"
+    "modernbetapatches.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

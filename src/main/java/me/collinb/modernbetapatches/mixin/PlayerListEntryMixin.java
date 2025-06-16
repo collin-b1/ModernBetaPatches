@@ -1,8 +1,8 @@
-package me.collinb.modernbetacompanion.mixin;
+package me.collinb.modernbetapatches.mixin;
 
 import com.mojang.authlib.GameProfile;
-import me.collinb.modernbetacompanion.ModernBetaCompanion;
-import me.collinb.modernbetacompanion.manager.CapeManager;
+import me.collinb.modernbetapatches.ModernBetaPatches;
+import me.collinb.modernbetapatches.manager.CapeManager;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.SkinTextures;
 import net.minecraft.util.Identifier;
@@ -31,7 +31,7 @@ public abstract class PlayerListEntryMixin {
 
     @Inject(method = "getSkinTextures", at = @At("TAIL"), cancellable = true)
     private void overrideSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
-        if (!ModernBetaCompanion.isModernBeta()) return;
+        if (!ModernBetaPatches.isModernBeta()) return;
         SkinTextures originalSkinTextures = cir.getReturnValue();
         Identifier modernBetaCape = CapeManager.getCape(profile.getId());
         SkinTextures newSkinTextures = new SkinTextures(

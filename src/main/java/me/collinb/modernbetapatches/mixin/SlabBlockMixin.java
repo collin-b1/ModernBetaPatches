@@ -1,6 +1,6 @@
-package me.collinb.modernbetacompanion.mixin;
+package me.collinb.modernbetapatches.mixin;
 
-import me.collinb.modernbetacompanion.ModernBetaCompanion;
+import me.collinb.modernbetapatches.ModernBetaPatches;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.enums.SlabType;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SlabBlockMixin {
     @Inject(method = "getPlacementState", at = @At("RETURN"), cancellable = true)
     private void preventUpperBlock(ItemPlacementContext ctx, CallbackInfoReturnable<BlockState> cir) {
-        if (ModernBetaCompanion.isModernBeta()) {
+        if (ModernBetaPatches.isModernBeta()) {
             BlockState state = cir.getReturnValue();
             if (state != null && state.get(SlabBlock.TYPE) == SlabType.TOP) {
                 cir.setReturnValue(state.with(SlabBlock.TYPE, SlabType.BOTTOM));

@@ -1,6 +1,6 @@
-package me.collinb.modernbetacompanion.mixin;
+package me.collinb.modernbetapatches.mixin;
 
-import me.collinb.modernbetacompanion.ModernBetaCompanion;
+import me.collinb.modernbetapatches.ModernBetaPatches;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ClientPlayerEntityMixin {
     @Inject(method = "canStartSprinting", at = @At("RETURN"), cancellable = true)
     private void preventSprinting(CallbackInfoReturnable<Boolean> cir) {
-        if (ModernBetaCompanion.isModernBeta()) {
-            if (ModernBetaCompanion.getPlayerGameMode() == GameMode.SURVIVAL) {
+        if (ModernBetaPatches.isModernBeta()) {
+            if (ModernBetaPatches.getPlayerGameMode() == GameMode.SURVIVAL) {
                 cir.setReturnValue(false);
             }
         }

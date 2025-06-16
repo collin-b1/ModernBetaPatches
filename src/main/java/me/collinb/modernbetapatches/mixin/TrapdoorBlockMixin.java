@@ -1,6 +1,6 @@
-package me.collinb.modernbetacompanion.mixin;
+package me.collinb.modernbetapatches.mixin;
 
-import me.collinb.modernbetacompanion.ModernBetaCompanion;
+import me.collinb.modernbetapatches.ModernBetaPatches;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.block.enums.BlockHalf;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class TrapdoorBlockMixin {
     @Inject(method = "getPlacementState", at = @At("HEAD"), cancellable = true)
     private void onPlace(ItemPlacementContext ctx, CallbackInfoReturnable<BlockState> cir) {
-        if (ModernBetaCompanion.isModernBeta()) {
+        if (ModernBetaPatches.isModernBeta()) {
             // Cancel if trapdoor was placed directly on ceiling or floor
             if (ctx.getSide() == Direction.UP || ctx.getSide() == Direction.DOWN) {
                 cir.setReturnValue(null);
@@ -36,7 +36,7 @@ public class TrapdoorBlockMixin {
 
     @Inject(method = "getPlacementState", at = @At("RETURN"), cancellable = true)
     private void preventUpperBlock(ItemPlacementContext ctx, CallbackInfoReturnable<BlockState> cir) {
-        if (ModernBetaCompanion.isModernBeta()) {
+        if (ModernBetaPatches.isModernBeta()) {
             // Change trapdoor to lower half if necessary
             BlockState state = cir.getReturnValue();
             if (state != null && state.get(TrapdoorBlock.HALF) == BlockHalf.TOP) {

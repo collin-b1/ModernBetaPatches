@@ -1,4 +1,4 @@
-package me.collinb.modernbetacompanion.manager;
+package me.collinb.modernbetapatches.manager;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;

@@ -1,6 +1,6 @@
-package me.collinb.modernbetacompanion.mixin;
+package me.collinb.modernbetapatches.mixin;
 
-import me.collinb.modernbetacompanion.ModernBetaCompanion;
+import me.collinb.modernbetapatches.ModernBetaPatches;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.util.math.Direction;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FenceBlockMixin {
     @Inject(method = "canConnect", at = @At("HEAD"), cancellable = true)
     private void onlyConnectToFences(BlockState state, boolean neighborIsFullSquare, Direction dir, CallbackInfoReturnable<Boolean> cir) {
-        if (ModernBetaCompanion.isModernBeta()) {
+        if (ModernBetaPatches.isModernBeta()) {
             cir.setReturnValue(state.getBlock() instanceof FenceBlock);
         }
     }
