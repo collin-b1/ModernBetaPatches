@@ -24,11 +24,7 @@ public class CapeManager {
                 NativeImage image = NativeImage.read(stream);
 
                 NativeImage reformatted = new NativeImage(NativeImage.Format.RGBA, 64, 32, true);
-                for (int y = 0; y < 32; y++) {
-                    for (int x = 0; x < 64; x++) {
-                        reformatted.setColorArgb(x, y, 0x00000000); // transparent
-                    }
-                }
+                reformatted.fillRect(0, 0, 64, 32, 0x00000000);
 
                 for (int y = 0; y < 17; y++) {
                     for (int x = 0; x < 22; x++) {
@@ -44,9 +40,7 @@ public class CapeManager {
                             .registerTexture(id, new NativeImageBackedTexture(reformatted));
                     capes.put(uuid, id);
                 });
-            } catch (IOException ignored) {
-                // No cape found, silently ignore
-            }
+            } catch (IOException ignored) {}
         });
     }
 
