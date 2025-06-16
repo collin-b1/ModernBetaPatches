@@ -40,7 +40,10 @@ public class CapeManager {
                             .registerTexture(id, new NativeImageBackedTexture(reformatted));
                     capes.put(uuid, id);
                 });
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+                // Cape not found, remove identifier
+                capes.remove(uuid);
+            }
         });
     }
 

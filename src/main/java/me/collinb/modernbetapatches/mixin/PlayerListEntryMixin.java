@@ -25,20 +25,23 @@ public abstract class PlayerListEntryMixin {
 
     @Inject(method = "texturesSupplier", at = @At("TAIL"))
     private static void loadModernBetaCape(GameProfile profile, CallbackInfoReturnable<Supplier<SkinTextures>> cir) {
-        UUID uuid = profile.getId();
-        CapeManager.fetchCape(uuid);
+        if (ModernBetaPatches.isModernBeta()) {
+            UUID uuid = profile.getId();
+            CapeManager.fetchCape(uuid);
+        }
     }
 
     @Inject(method = "getSkinTextures", at = @At("TAIL"), cancellable = true)
     private void overrideSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
-        if (!ModernBetaPatches.isModernBeta()) return;
-        SkinTextures originalSkinTextures = cir.getReturnValue();
-        Identifier modernBetaCape = CapeManager.getCape(profile.getId());
-        SkinTextures newSkinTextures = new SkinTextures(
-                originalSkinTextures.texture(), originalSkinTextures.textureUrl(),
-                (modernBetaCape == null ?  originalSkinTextures.capeTexture() : modernBetaCape),
-                originalSkinTextures.elytraTexture(),
-                originalSkinTextures.model(), originalSkinTextures.secure());
-        cir.setReturnValue(newSkinTextures);
+        if (ModernBetaPatches.isModernBeta()) {
+            SkinTextures originalSkinTextures = cir.getReturnValue();
+            Identifier modernBetaCape = CapeManager.getCape(profile.getId());
+            SkinTextures newSkinTextures = new SkinTextures(
+                    originalSkinTextures.texture(), originalSkinTextures.textureUrl(),
+                    (modernBetaCape == null ?  originalSkinTextures.capeTexture() : modernBetaCape),
+                    originalSkinTextures.elytraTexture(),
+                    originalSkinTextures.model(), originalSkinTextures.secure());
+            cir.setReturnValue(newSkinTextures);
+        }
     }
 }

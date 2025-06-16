@@ -4,15 +4,16 @@
   "package": "me.collinb.modernbetapatches.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AxeItemMixin",
     "FenceBlockMixin",
-    "PlayerEntityMixin",
+    "ShovelItemMixin",
     "SlabBlockMixin",
     "StairsBlockMixin",
     "TrapdoorBlockMixin"
   ],
   "client": [
-    "PlayerListEntryMixin",
-    "ClientPlayerEntityMixin"
+    "ClientPlayerEntityMixin",
+    "PlayerListEntryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

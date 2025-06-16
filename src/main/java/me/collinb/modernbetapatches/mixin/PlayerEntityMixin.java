@@ -16,6 +16,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract PlayerAbilities getAbilities();
 
+    @Shadow protected abstract boolean canChangeIntoPose(EntityPose pose);
+
     protected PlayerEntityMixin(World world) {
         super(EntityType.PLAYER, world);
     }
@@ -23,10 +25,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Redirect(method = "updatePose", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;canChangeIntoPose(Lnet/minecraft/entity/EntityPose;)Z"))
     private boolean preventSwimmingAndCrawling(PlayerEntity instance, EntityPose pose) {
         if (ModernBetaPatches.isModernBeta()) {
-            if (this.getPose() == EntityPose.SWIMMING) {
-                this.setPose(EntityPose.STANDING);
+            if (pose == EntityPose.SWIMMING || pose == EntityPose.GLIDING) {
+                if (this.getPose() == EntityPose.SWIMMING && !getAbilities().flying) {
+                    this.setPose(EntityPose.STANDING);
+                }
+                return false;
             }
         }
-        return false;
+        return canChangeIntoPose(pose);
     }
 }
