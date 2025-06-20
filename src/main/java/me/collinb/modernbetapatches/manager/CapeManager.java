@@ -28,8 +28,8 @@ public class CapeManager {
 
                 for (int y = 0; y < image.getHeight(); y++) {
                     for (int x = 0; x < image.getWidth(); x++) {
-                        int color = image.getColorArgb(x, y);
-                        reformatted.setColorArgb(x, y, color);
+                        int color = image.getColor(x, y);
+                        reformatted.setColor(x, y, color);
                     }
                 }
 
