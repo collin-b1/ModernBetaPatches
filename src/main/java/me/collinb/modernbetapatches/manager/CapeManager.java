@@ -26,8 +26,8 @@ public class CapeManager {
                 NativeImage reformatted = new NativeImage(NativeImage.Format.RGBA, 64, 32, true);
                 reformatted.fillRect(0, 0, 64, 32, 0x00000000);
 
-                for (int y = 0; y < 17; y++) {
-                    for (int x = 0; x < 22; x++) {
+                for (int y = 0; y < image.getHeight(); y++) {
+                    for (int x = 0; x < image.getWidth(); x++) {
                         int color = image.getColorArgb(x, y);
                         reformatted.setColorArgb(x, y, color);
                     }
